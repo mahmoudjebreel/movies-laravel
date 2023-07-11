@@ -1,5 +1,6 @@
 @extends('backend.dashboard')
-@section('title','Edit Role')
+@section('title','Edit User')
+
 @section('content')
     <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
         <!--begin::Content wrapper-->
@@ -11,7 +12,7 @@
                     <!--begin::Page title-->
                     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                         <!--begin::Title-->
-                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Edit Role</h1>
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Edit User</h1>
                         <!--end::Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -26,7 +27,7 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">Role Management</li>
+                            <li class="breadcrumb-item text-muted">User Management</li>
                             <!--end::Item-->
                             <!--begin::Item-->
                             <li class="breadcrumb-item">
@@ -34,7 +35,7 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">Roles</li>
+                            <li class="breadcrumb-item text-muted">Users</li>
                             <!--end::Item-->
                         </ul>
                         <!--end::Breadcrumb-->
@@ -52,7 +53,7 @@
                 <!--begin::Content container-->
                 <div id="kt_app_content_container" class="app-container container-xxl">
                     <!--begin::Form-->
-                    <form id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row" action="{{route('roles.update',$role->id)}}" method="POST">
+                    <form id="kt_ecommerce_add_product_form" class="form d-flex flex-column flex-lg-row" action="{{route('users.update',$user->id)}}" method="POST">
                         @csrf
                         @method('PUT')
                         <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
@@ -70,36 +71,62 @@
                                                     <label class="required form-label"> Name</label>
                                                     <!--end::Label-->
                                                     <!--begin::Input-->
-                                                    <input type="text" name="name" class="form-control mb-2" value="{{$role->name}}"/>
+                                                    <input type="text" name="name" class="form-control mb-2" value="{{$user->name}}"/>
                                                     <!--end::Input-->
                                                     <!--begin::Description-->
                                                     <!--end::Description-->
-{{--                                                    <div class="mb-10 fv-row">--}}
-{{--                                                        <div class="form-group">--}}
-{{--                                                            <strong>Permission:</strong>--}}
-{{--                                                            <br/>--}}
-{{--                                                            @foreach($permission as $value)--}}
-{{--                                                                <label>{{ Form::checkbox('permission[]', $value->id, in_array($value->id, $rolePermissions) ? true : false, array('class' => 'name')) }}--}}
-{{--                                                                    {{ $value->name }}</label>--}}
-{{--                                                                <br/>--}}
-{{--                                                            @endforeach--}}
-{{--                                                        </div>--}}
-{{--                                                    </div>--}}
-
-                                                    <div class="mb-10 fv-row">
-                                                        <div class="form-group">
-                                                            <strong>Permission:</strong>
-                                                            <br/>
-                                                            @foreach($permission as $value)
-                                                                <label>
-                                                                    <input type="checkbox" name="permission[]" value="{{ $value->id }}" class="name" {{ in_array($value->id, $rolePermissions) ? 'checked' : '' }}>
-                                                                    {{ $value->name }}
-                                                                </label>
-                                                                <br/>
-                                                            @endforeach
-                                                        </div>
-                                                    </div>
                                                 </div>
+                                                <div class="mb-10 fv-row">
+                                                    <!--begin::Label-->
+                                                    <label class="required form-label"> Email</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="email" class="form-control mb-2" value="{{$user->email}}"/>
+                                                    <!--end::Input-->
+                                                    <!--begin::Description-->
+                                                    <!--end::Description-->
+                                                </div>
+                                                <div class="mb-10 fv-row">
+                                                    <!--begin::Label-->
+                                                    <label class="required form-label"> Password</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="password" class="form-control mb-2"/>
+                                                    <!--end::Input-->
+                                                    <!--begin::Description-->
+                                                    <!--end::Description-->
+                                                </div>
+                                                <div class="mb-10 fv-row">
+                                                    <!--begin::Label-->
+                                                    <label class="required form-label"> Confirm Password</label>
+                                                    <!--end::Label-->
+                                                    <!--begin::Input-->
+                                                    <input type="text" name="confirm-password" class="form-control mb-2"/>
+                                                    <!--end::Input-->
+                                                    <!--begin::Description-->
+                                                    <!--end::Description-->
+                                                </div>
+                                                <div class="mb-10 fv-row">
+                                                    <strong>Role:</strong>
+                                                    {!! Form::select('roles[]', $roles,$userRole, array('class' => 'form-control','multiple')) !!}
+                                                </div>
+{{--                                                <div class="col">--}}
+{{--                                                    <div class="fv-row mb-7">--}}
+{{--                                                        <label class="fs-6 fw-semibold form-label mt-3">--}}
+{{--                                                            <span>{{ __('Roles') }}</span>--}}
+{{--                                                            <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"--}}
+{{--                                                               aria-label="Enter the contact's phone number (optional)."--}}
+{{--                                                               data-bs-original-title="Enter the contact's phone number (optional)."--}}
+{{--                                                               data-kt-initialized="1"></i>--}}
+{{--                                                        </label>--}}
+{{--                                                        <select name="roles[]" class="form-control" multiple>--}}
+{{--                                                            @foreach ($roles as $role)--}}
+{{--                                                                <option value="{{ $role->id }}">{{ $role->name }}</option>--}}
+{{--                                                            @endforeach--}}
+{{--                                                        </select>--}}
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
+
 
                                             </div>
                                             <!--end::Card header-->
@@ -115,7 +142,7 @@
                             <!--end::Tab content-->
                             <div class="d-flex justify-content-end">
                                 <!--begin::Button-->
-                                <a href="{{route('roles.index')}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
+                                <a href="{{route('users.index')}}" id="kt_ecommerce_add_product_cancel" class="btn btn-light me-5">Cancel</a>
                                 <!--end::Button-->
                                 <!--begin::Button-->
                                 <button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">

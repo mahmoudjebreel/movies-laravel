@@ -81,20 +81,23 @@
                             <!--begin::Card toolbar-->
                             <div class="card-toolbar">
                                 <!--begin::Toolbar-->
+
                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                     <!--begin::Filter-->
 
                                     <!--end::Export-->
                                     <!--begin::Add user-->
+                                    @can('role-create')
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
-                                        <span class="svg-icon svg-icon-2">
+                                                 <span class="svg-icon svg-icon-2">
 														<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 															<rect opacity="0.5" x="11.364" y="20.364" width="16" height="2" rx="1" transform="rotate(-90 11.364 20.364)" fill="currentColor" />
 															<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor" />
 														</svg>
 													</span>
                                         <!--end::Svg Icon-->Add Role</button>
+                                    @endcan
                                     <!--end::Add user-->
                                 </div>
 
@@ -135,58 +138,40 @@
                                                             <label class="required fw-semibold fs-6 mb-2">Name</label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Please Enter The Role Name" />
+{{--                                                            <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Please Enter The Role Name" />--}}
+                                                            {!! Form::text('name', null, array('placeholder' => 'Please Enter The Role Name','class' => 'form-control form-control-solid mb-3 mb-lg-0')) !!}
+
                                                             <!--end::Input-->
                                                         </div>
 
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <h4>
-                                                            Permissions
-                                                        </h4>
-                                                        <table class="table align-middle table-row-dashed fs-6 gy-5">
-                                                            <!--begin::Table head-->
-                                                            <thead>
-                                                            <!--begin::Table row-->
-                                                            <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                                                <th class="min-w-125px">#</th>
-                                                                <th class="min-w-125px">Model</th>
-                                                                <th class="min-w-125px">Permissions</th>
-{{--                                                                <th class="text-end min-w-100px">Actions</th>--}}
-                                                            </tr>
-                                                            <!--end::Table row-->
-                                                            </thead>
-                                                            <!--end::Table head-->
-                                                            <!--begin::Table body-->
-                                                            <tbody class="text-gray-600 fw-semibold">
-                                                            <!--begin::Table row-->
-                                                                @php
-                                                                    $models = ['categories','users']
-                                                                @endphp
-                                                            @foreach($models as $index=>$model)
-                                                                <tr>
-                                                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$index + 1}}</td>
-                                                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$model}}</td>
-                                                                    <td data-order="2023-09-22T22:10:00+03:00" >
-                                                                        @php
-                                                                            $permission_maps = ['create','read','update','delete']
-                                                                        @endphp
+                                                        <div class="fv-row mb-7 fv-plugins-icon-container">
+                                                            <!--begin::Label-->
+                                                            <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <span class="required">{{ __('Permission') }}</span>
+                                                                <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                                                   aria-label="Enter the contact's name." data-bs-original-title="Enter the contact's name."
+                                                                   data-kt-initialized="1"></i>
+                                                            </label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+{{--                                                            <input type="checkbox" class="form-check-input" name="select-all" id="select-all" />--}}
+{{--                                                            <label class="form-check-label" for="select-all">select all</label>--}}
+                                                            <div class="card">
+                                                                <div class="card-body">
+                                                                    @foreach ($permission as $value)
+                                                                        <div class="form-check m-2">
+                                                                            <input type="checkbox" name="permission[{{ $value->id }}]" class="form-check-input"
+                                                                                   value="{{ $value->name }}" id="{{ $value->id }}">
+                                                                            <label class="form-check-label" for="{{ $value->id }}">{{ $value->name }}</label>
+                                                                        </div>
+                                                                    @endforeach
+                                                                </div>
+                                                            </div>
+                                                            <!--end::Input-->
+                                                            <div class="fv-plugins-message-container invalid-feedback"></div>
+                                                        </div>
+                                                        <!--begin::Row-->
 
-                                                                                    <select class="form-control select2" name="permissions[]" multiple>
-                                                                                        @foreach($permission_maps as $permission_map)
-                                                                                            <option value="{{$permission_map .'_'.$model }}">{{$permission_map}}</option>
-                                                                                        @endforeach
-                                                                                    </select>
-                                                                    </td>
-
-                                                                </tr>
-                                                            @endforeach
-                                                            <!--end::Action=-->
-
-                                                            <!--end::Table row-->
-                                                            </tbody>
-                                                            <!--end::Table body-->
-                                                        </table>
                                                     </div>
                                                     <!--end::Scroll-->
                                                     <!--begin::Actions-->
@@ -228,9 +213,8 @@
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
+                                    <th class="min-w-125px">#</th>
                                     <th class="min-w-125px">Name</th>
-{{--                                    <th class="min-w-125px">Display Name</th>--}}
-{{--                                    <th class="min-w-125px">Description</th>--}}
                                     <th class="text-end min-w-100px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -242,22 +226,23 @@
                                 @foreach($roles as $role)
                                 <tr>
 
-                                    <td class="d-flex align-items-center">
-                                        <!--begin::User details-->
-                                        <div class="d-flex flex-column">
-                                            <span href="#" class="text-gray-800 text-hover-primary mb-1">{{$role->name}}</span>
-                                        </div>
-
-                                        <!--begin::User details-->
-                                    </td>
+                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$loop->iteration}} </td>
+                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$role->name}} </td>
                                     <td class="text-end">
+                                        @can('role-show')
+                                        <a href="{{route('roles.show',$role->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">View</a>
+                                        @endcan
+                                        @can('role-edit')
                                         <a href="{{route('roles.edit',$role->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">Edit</a>
+                                        @endcan
+                                        @can('role-delete')
                                         <form action="{{ route('roles.destroy', $role->id) }}" method="post" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">
                                             @csrf
                                             @method('delete')
                                             <button class="dropdown-item" href="javascript:void(0);">
                                                 Delete</button>
                                         </form>
+                                        @endcan
                                     </td>
 
                                 </tr>

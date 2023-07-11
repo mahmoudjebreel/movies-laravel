@@ -10,6 +10,14 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+
+    function __construct()
+    {
+        $this->middleware('permission:categories-list|categories-create|categories-edit|categories-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:categories-create', ['only' => ['create','store']]);
+        $this->middleware('permission:categories-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:categories-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -42,7 +50,7 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
         Category::create($request->all());
         return  redirect()->route('categories.index');
@@ -80,7 +88,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CategoryRequest $request, $id)
     {
 //        $category = Category::findOrFail($id);
 //        $category->name = $request->name;

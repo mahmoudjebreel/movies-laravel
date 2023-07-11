@@ -25,6 +25,7 @@
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="{{asset('backend/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('backend/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+
     <!--end::Global Stylesheets Bundle-->
     @yield('styles')
 </head>
@@ -4899,8 +4900,15 @@
 <script src="{{asset('backend/assets/js/custom/utilities/modals/new-target.js')}}"></script>
 <script src="{{asset('backend/assets/js/custom/utilities/modals/users-search.js')}}"></script>
 
-
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+<script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-multiselect/0.9.13/js/bootstrap-multiselect.js"></script>
 <!--end::Custom Javascript-->
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#multiple-checkboxes').multiselect();
+    });
+</script>
 @yield('scripts')
 <!--end::Javascript-->
 </body>

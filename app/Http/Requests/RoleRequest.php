@@ -25,8 +25,10 @@ class RoleRequest extends FormRequest
     {
         return [
             'name'=>'required|unique:roles,name',
-            'permissions'=>'required|array|min:1',
+//            'permissions'=>'required|array|min:1',
+//            'permissions' => 'required',
 //            'permissions' => 'required|array',
+//            'permissions.*' => 'exists:permissions,name',
 
         ];
     }

@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'user',
         'passwords' => 'users',
     ],
 
@@ -40,7 +40,20 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-    ],
+//        'admin' => [
+//            'driver' => 'session',
+//            'provider' => 'admins',
+//        ],
+        'user' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
+//        'api' => [
+//            'driver' => 'token',
+//            'provider' => 'users',
+//            'hash' => false,
+//        ]
+        ],
 
     /*
     |--------------------------------------------------------------------------

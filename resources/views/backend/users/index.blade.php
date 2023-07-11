@@ -1,5 +1,5 @@
 @extends('backend.dashboard')
-@section('title','Index Category')
+@section('title','Index User')
 @section('styles')
 
 @endsection
@@ -14,7 +14,7 @@
                     <!--begin::Page title-->
                     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                         <!--begin::Title-->
-                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">Categories List</h1>
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">User List</h1>
                         <!--end::Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -29,7 +29,7 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">Category Management</li>
+                            <li class="breadcrumb-item text-muted">User Management</li>
                             <!--end::Item-->
                             <!--begin::Item-->
                             <li class="breadcrumb-item">
@@ -37,7 +37,7 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">Categories</li>
+                            <li class="breadcrumb-item text-muted">Users</li>
                             <!--end::Item-->
                         </ul>
                         <!--end::Breadcrumb-->
@@ -64,7 +64,7 @@
                                         <!--begin::Search-->
                                         <div class="d-flex align-items-center position-relative my-1">
                                             <!--begin::Svg Icon | path: icons/duotune/general/gen021.svg-->
-                                            <form action="{{ route('categories.index') }}" method="GET" class="mb-3">
+                                            <form action="{{ route('users.index') }}" method="GET" class="mb-3">
                                                 <div class="input-group">
                                                     <span class="svg-icon svg-icon-1 position-absolute ms-4">
                                                                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +74,7 @@
                                                             </span>
 
                                                     <!--end::Svg Icon-->
-                                                    <input type="text" name="keyword" class="form-control form-control-solid w-250px ps-14" placeholder="Search Category"/>
+                                                    <input type="text" name="keyword" class="form-control form-control-solid w-250px ps-14" placeholder="Search user"/>
                                                 </div>
                                             </form>
                                         </div>
@@ -85,12 +85,11 @@
                             </div>
                             <!--begin::Card title-->
                             <!--begin::Card toolbar-->
-
                             <div class="card-toolbar">
                                 <!--begin::Toolbar-->
                                 <div class="d-flex justify-content-end" data-kt-user-table-toolbar="base">
                                     <!--begin::Filter-->
-
+                                        @can('users-create')
                                     <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal" data-bs-target="#kt_modal_export_users">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr078.svg-->
                                         <span class="svg-icon svg-icon-2">
@@ -103,7 +102,6 @@
                                         <!--end::Svg Icon-->Export</button>
                                     <!--end::Export-->
                                     <!--begin::Add user-->
-                                    @can('categories-create')
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                         <span class="svg-icon svg-icon-2">
@@ -112,11 +110,10 @@
 															<rect x="4.36396" y="11.364" width="16" height="2" rx="1" fill="currentColor" />
 														</svg>
 													</span>
-                                        <!--end::Svg Icon-->Add Category</button>
+                                        <!--end::Svg Icon-->Add User</button>
                                     @endcan
                                     <!--end::Add user-->
                                 </div>
-
                                 <!--end::Toolbar-->
                                 <!--begin::Group actions-->
                                 <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
@@ -134,7 +131,7 @@
                                             <!--begin::Modal header-->
                                             <div class="modal-header">
                                                 <!--begin::Modal title-->
-                                                <h2 class="fw-bold">Export Category</h2>
+                                                <h2 class="fw-bold">Export User</h2>
                                                 <!--end::Modal title-->
                                                 <!--begin::Close-->
                                                 <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
@@ -171,7 +168,7 @@
                                                     <!--end::Input group-->
                                                     <!--begin::Actions-->
                                                     <div class="text-center">
-                                                        <a href="{{route('categories.index')}}" type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Cancel</a>
+                                                        <a href="{{route('users.index')}}" type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Cancel</a>
                                                         <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
                                                             <span class="indicator-label">Submit</span>
                                                             <span class="indicator-progress">Please wait...
@@ -196,10 +193,9 @@
                                         <!--begin::Modal content-->
                                         <div class="modal-content">
                                             <!--begin::Modal header-->
-
                                             <div class="modal-header" id="kt_modal_add_user_header">
                                                 <!--begin::Modal title-->
-                                                <h2 class="fw-bold">Add Category</h2>
+                                                <h2 class="fw-bold">Add User</h2>
                                                 <!--end::Modal title-->
                                                 <!--begin::Close-->
                                                 <div class="btn btn-icon btn-sm btn-active-icon-primary" data-kt-users-modal-action="close">
@@ -218,7 +214,7 @@
                                             <!--begin::Modal body-->
                                             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                                 <!--begin::Form-->
-                                                <form id="kt_modal_add_user_form" class="form" action="{{route('categories.store')}}" method="POST">
+                                                <form id="kt_modal_add_user_form" class="form" action="{{route('users.store')}}" method="POST">
                                                     @csrf
                                                     <!--begin::Scroll-->
                                                     <div class="d-flex flex-column scroll-y me-n7 pe-7" id="kt_modal_add_user_scroll" data-kt-scroll="true" data-kt-scroll-activate="{default: false, lg: true}" data-kt-scroll-max-height="auto" data-kt-scroll-dependencies="#kt_modal_add_user_header" data-kt-scroll-wrappers="#kt_modal_add_user_scroll" data-kt-scroll-offset="300px">
@@ -228,15 +224,71 @@
                                                             <label class="required fw-semibold fs-6 mb-2">Name</label>
                                                             <!--end::Label-->
                                                             <!--begin::Input-->
-                                                            <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Please Enter The Category Name" />
+                                                            {!! Form::text('name', null, array('placeholder' => 'Enter The User Name','class' => 'form-control form-control-solid mb-3 mb-lg-0')) !!}
+                                                            @error('name') <div class="text-danger">{{$message}}</div> @enderror
+
+                                                            {{--                                                            <input type="text" name="name" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter The User Name" required/>--}}
+
                                                             <!--end::Input-->
                                                         </div>
+                                                        <div class="fv-row mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="required fw-semibold fs-6 mb-2">Email</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            {!! Form::text('email', null, array('placeholder' => 'Enter The User Email','class' => 'form-control form-control-solid mb-3 mb-lg-0')) !!}
+                                                            @error('email') <div class="text-danger">{{$message}}</div> @enderror
+
+{{--                                                            <input type="email" name="email" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="Enter The User Email" required/>--}}
+
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <div class="fv-row mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="required fw-semibold fs-6 mb-2">Password</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            {!! Form::password('password', array('placeholder' => 'Password','class' => 'form-control form-control-solid mb-3 mb-lg-0')) !!}
+                                                            @error('password') <div class="text-danger">{{$message}}</div> @enderror
+                                                            {{--                                                            <input type="password" name="password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="password" required/>--}}
+
+                                                            <!--end::Input-->
+                                                        </div>
+                                                        <div class="fv-row mb-7">
+                                                            <!--begin::Label-->
+                                                            <label class="required fw-semibold fs-6 mb-2">Confirm Password</label>
+                                                            <!--end::Label-->
+                                                            <!--begin::Input-->
+                                                            {!! Form::password('confirm-password', array('placeholder' => 'Confirm Password','class' => 'form-control form-control-solid mb-3 mb-lg-0')) !!}
+                                                            @error('password') <div class="text-danger">{{$message}}</div> @enderror
+
+                                                            {{--                                                            <input type="password" name="confirm-password" class="form-control form-control-solid mb-3 mb-lg-0" placeholder="password" required/>--}}
+
+                                                            <!--end::Input-->
+                                                        </div>
+
+                                                        <div class="col">
+                                                            <div class="fv-row mb-7">
+                                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                                    <span>{{ __('Roles') }}</span>
+                                                                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
+                                                                       aria-label="Enter the contact's phone number (optional)."
+                                                                       data-bs-original-title="Enter the contact's phone number (optional)."
+                                                                       data-kt-initialized="1"></i>
+                                                                </label>
+                                                                <select name="roles[]" class="form-control" multiple>
+                                                                    @foreach ($roles as $role)
+                                                                        <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                                    @endforeach
+                                                                </select>
+                                                            </div>
+                                                            </div>
 
                                                     </div>
                                                     <!--end::Scroll-->
                                                     <!--begin::Actions-->
                                                     <div class="text-center pt-15">
-                                                        <a href="{{route('categories.index')}}" type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Cancel</a>
+                                                        <a href="{{route('users.index')}}" type="reset" class="btn btn-light me-3" data-kt-users-modal-action="cancel">Cancel</a>
                                                         <button type="submit" class="btn btn-primary" data-kt-users-modal-action="submit">
                                                             <span class="indicator-label">Submit</span>
                                                             <span class="indicator-progress">Please wait...
@@ -276,7 +328,10 @@
                                             <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
                                         </div>
                                     </th>
+                                    <th class="min-w-125px">#</th>
                                     <th class="min-w-125px">Name</th>
+                                    <th class="min-w-125px">Email</th>
+                                    <th class="min-w-125px">Role</th>
                                     <th class="text-end min-w-100px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -285,7 +340,7 @@
                                 <!--begin::Table body-->
                                 <tbody class="text-gray-600 fw-semibold">
                                 <!--begin::Table row-->
-                                @foreach($categories as $category)
+                                @foreach($users as $user)
                                 <tr>
                                     <!--begin::Checkbox-->
                                     <td>
@@ -295,24 +350,27 @@
                                     </td>
                                     <!--end::Checkbox-->
                                     <!--begin::User=-->
-                                    <td class="d-flex align-items-center">
-                                        <!--begin::User details-->
-                                        <div class="d-flex flex-column">
-                                            <span href="#" class="text-gray-800 text-hover-primary mb-1">{{$category->name}}</span>
-                                        </div>
-                                        <!--begin::User details-->
+                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$loop->iteration}} </td>
+                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$user->name}}</td>
+                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$user->email}}</td>
+                                    <td data-order="2023-09-22T22:10:00+03:00">
+                                        @if(!empty($user->getRoleNames()))
+                                            @foreach($user->getRoleNames() as $v)
+                                                <label class="badge badge-success">{{ $v }}</label>
+                                            @endforeach
+                                        @endif
                                     </td>
 
 
                                     <td class="text-end">
-                                        @can('categories-show')
-                                        <a href="{{route('categories.show',$category->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">View</a>
+                                        @can('users-show')
+                                        <a href="{{route('users.show',$user->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">View</a>
                                         @endcan
-                                        @can('categories-edit')
-                                        <a href="{{route('categories.edit',$category->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">Edit</a>
-                                       @endcan
-                                       @can('categories-delete')
-                                        <form action="{{ route('categories.destroy', $category->id) }}" method="post" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">
+                                        @can('users-edit')
+                                        <a href="{{route('users.edit',$user->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">Edit</a>
+                                        @endcan
+                                        @can('users-delete')
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="post" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">
                                             @csrf
                                             @method('delete')
                                             <button class="dropdown-item" href="javascript:void(0);">
@@ -340,7 +398,7 @@
                     <div class="d-flex flex-stack flex-wrap pt-10">
                         <!--begin::Pages-->
                         <ul class="pagination">
-                            {!! $categories->links() !!}
+                            {!! $users->links() !!}
                         </ul>
                         <!--end::Pages-->
                     </div>

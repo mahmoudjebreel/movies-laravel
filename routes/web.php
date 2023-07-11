@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Backend\CategoryController;
 use \App\Http\Controllers\Backend\RoleController;
+use \App\Http\Controllers\Backend\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,10 +24,12 @@ use \App\Http\Controllers\Backend\RoleController;
 //Route::get('/dashboard', function () {
 //    return view('backend.dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
-Route::prefix('/dashboard')->middleware(['auth', 'verified','role:super_admin|admin'])->group(function (){
+Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function (){
     Route::view('/','backend.dashboard')->name('dashboard');
     Route::resource('/categories',CategoryController::class);
-    Route::resource('/roles',RoleController::class)->except(['show']);
+    Route::resource('/roles',RoleController::class);
+    Route::resource('/users',UserController::class);
+
 });
 
 Route::middleware('auth')->group(function () {
