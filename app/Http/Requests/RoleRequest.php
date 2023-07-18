@@ -28,7 +28,7 @@ class RoleRequest extends FormRequest
 //            'permissions'=>'required|array|min:1',
 //            'permissions' => 'required',
 //            'permissions' => 'required|array',
-//            'permissions.*' => 'exists:permissions,name',
+            'permissions.*' => 'exists:permissions,name',
 
         ];
     }

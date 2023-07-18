@@ -4886,10 +4886,8 @@
 <script src="https://cdn.amcharts.com/lib/5/geodata/usaLow.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZonesLow.js"></script>
 <script src="https://cdn.amcharts.com/lib/5/geodata/worldTimeZoneAreasLow.js"></script>
-{{--<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>--}}
 
 <script src="{{asset('backend/assets/plugins/custom/datatables/datatables.bundle.js')}}"></script>
-{{--<script src="{{asset('backend/assets/plugins/select2.min.js')}}"></script>--}}
 <!--end::Vendors Javascript-->
 <!--begin::Custom Javascript(used for this page only)-->
 <script src="{{asset('backend/assets/js/widgets.bundle.js')}}"></script>

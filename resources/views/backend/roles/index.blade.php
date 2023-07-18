@@ -159,7 +159,7 @@
                                                             <div class="card">
                                                                 <div class="card-body">
                                                                     @foreach ($permission as $value)
-                                                                        <div class="form-check m-2">
+                                                                        <div class="form-check m-2 form-switch">
                                                                             <input type="checkbox" name="permission[{{ $value->id }}]" class="form-check-input"
                                                                                    value="{{ $value->name }}" id="{{ $value->id }}">
                                                                             <label class="form-check-label" for="{{ $value->id }}">{{ $value->name }}</label>

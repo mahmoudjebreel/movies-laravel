@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
-use App\Models\Role;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -109,4 +109,17 @@ class CategoryController extends Controller
         $category = Category::destroy($id);
         return  redirect()->route('categories.index');
     }
+
+//    public function export(Request $request) {
+//
+//        $data = Category::all();
+//        if ($request->has('pdf')){
+//            $pdf = PDF::loadView('pdf_view', $data);
+//            return $pdf->download('pdf_file.pdf');
+//        }
+//        elseif($request->has('excel')){
+//
+//        }
+//
+//    }
 }

@@ -1,6 +1,8 @@
 @extends('backend.dashboard')
 @section('title','Index User')
 @section('styles')
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
 
 @endsection
 @section('content')
@@ -116,11 +118,11 @@
                                 </div>
                                 <!--end::Toolbar-->
                                 <!--begin::Group actions-->
-                                <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">
-                                    <div class="fw-bold me-5">
-                                        <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected</div>
-                                    <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>
-                                </div>
+{{--                                <div class="d-flex justify-content-end align-items-center d-none" data-kt-user-table-toolbar="selected">--}}
+{{--                                    <div class="fw-bold me-5">--}}
+{{--                                        <span class="me-2" data-kt-user-table-select="selected_count"></span>Selected</div>--}}
+{{--                                    <button type="button" class="btn btn-danger" data-kt-user-table-select="delete_selected">Delete Selected</button>--}}
+{{--                                </div>--}}
                                 <!--end::Group actions-->
                                 <!--begin::Modal - Adjust Balance-->
                                 <div class="modal fade" id="kt_modal_export_users" tabindex="-1" aria-hidden="true">
@@ -161,7 +163,6 @@
                                                             <option></option>
                                                             <option value="excel">Excel</option>
                                                             <option value="pdf">PDF</option>
-                                                            <option value="cvs">CVS</option>
                                                         </select>
                                                         <!--end::Input-->
                                                     </div>
@@ -269,14 +270,14 @@
 
                                                         <div class="col">
                                                             <div class="fv-row mb-7">
-                                                                <label class="fs-6 fw-semibold form-label mt-3">
+                                                                <label class="required fs-6 fw-semibold form-label mt-3">
                                                                     <span>{{ __('Roles') }}</span>
-                                                                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"
-                                                                       aria-label="Enter the contact's phone number (optional)."
-                                                                       data-bs-original-title="Enter the contact's phone number (optional)."
-                                                                       data-kt-initialized="1"></i>
+{{--                                                                    <i class="fas fa-exclamation-circle ms-1 fs-7" data-bs-toggle="tooltip"--}}
+{{--                                                                       aria-label="Enter the contact's phone number (required)."--}}
+{{--                                                                       data-bs-original-title="Enter the contact's phone number (required)."--}}
+{{--                                                                       data-kt-initialized="1"></i>--}}
                                                                 </label>
-                                                                <select name="roles[]" class="form-control" multiple>
+                                                                <select name="roles[]" class="form-control select2 " multiple required>
                                                                     @foreach ($roles as $role)
                                                                         <option value="{{ $role->id }}">{{ $role->name }}</option>
                                                                     @endforeach
@@ -323,11 +324,11 @@
                                 <thead>
                                 <!--begin::Table row-->
                                 <tr class="text-start text-muted fw-bold fs-7 text-uppercase gs-0">
-                                    <th class="w-10px pe-2">
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                            <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />
-                                        </div>
-                                    </th>
+{{--                                    <th class="w-10px pe-2">--}}
+{{--                                        <div class="form-check form-check-sm form-check-custom form-check-solid me-3">--}}
+{{--                                            <input class="form-check-input" type="checkbox" data-kt-check="true" data-kt-check-target="#kt_table_users .form-check-input" value="1" />--}}
+{{--                                        </div>--}}
+{{--                                    </th>--}}
                                     <th class="min-w-125px">#</th>
                                     <th class="min-w-125px">Name</th>
                                     <th class="min-w-125px">Email</th>
@@ -343,14 +344,14 @@
                                 @foreach($users as $user)
                                 <tr>
                                     <!--begin::Checkbox-->
-                                    <td>
-                                        <div class="form-check form-check-sm form-check-custom form-check-solid">
-                                            <input class="form-check-input" type="checkbox" value="1" />
-                                        </div>
-                                    </td>
+{{--                                    <td>--}}
+{{--                                        <div class="form-check form-check-sm form-check-custom form-check-solid">--}}
+{{--                                            <input class="form-check-input" type="checkbox" value="1" />--}}
+{{--                                        </div>--}}
+{{--                                    </td>--}}
                                     <!--end::Checkbox-->
                                     <!--begin::User=-->
-                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$loop->iteration}} </td>
+                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$user->id}} </td>
                                     <td data-order="2023-09-22T22:10:00+03:00" >{{$user->name}}</td>
                                     <td data-order="2023-09-22T22:10:00+03:00" >{{$user->email}}</td>
                                     <td data-order="2023-09-22T22:10:00+03:00">
@@ -431,5 +432,14 @@
 
 @endsection
 @section('scripts')
+    <script src="{{asset('backend/assets/plugins/select2.min.js')}}"></script>
+{{--<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>--}}
 
+    <script>
+{{--        $(document).ready(function() {--}}
+//             $('.select2').select2({
+//                 width:'100%'
+// });
+{{--        });--}}
+</script>
 @endsection

@@ -91,10 +91,15 @@
                                                             <strong>Permission:</strong>
                                                             <br/>
                                                             @foreach($permission as $value)
-                                                                <label>
-                                                                    <input type="checkbox" name="permission[]" value="{{ $value->id }}" class="name" {{ in_array($value->id, $rolePermissions) ? 'checked' : '' }}>
-                                                                    {{ $value->name }}
-                                                                </label>
+                                                                <div class="form-check m-2 form-switch">
+                                                                    <label>
+                                                                        <input type="checkbox" name="permission[]" value="{{ $value->id }}"
+                                                                               {{ in_array($value->id, $rolePermissions) ? 'checked' : '' }}
+                                                                               class="form-check-input">
+                                                                        {{ $value->name }}
+                                                                    </label>
+
+                                                                </div>
                                                                 <br/>
                                                             @endforeach
                                                         </div>

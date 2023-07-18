@@ -45,8 +45,6 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::pluck('name','name')->all();
-//        $roles = Role::where('guard_name' , '=' , 'web')->get();
-//        $roles = Role::all();
         return view('backend.users.index',compact('roles'));
     }
 
@@ -62,8 +60,8 @@ class UserController extends Controller
         $input['password'] = Hash::make($input['password']);
 
         $user = User::create($input);
-//        dd($user);
         $user->assignRole($request->input('roles'));
+
 
         return redirect()->route('users.index')
             ->with('success','User created successfully');

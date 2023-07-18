@@ -27,8 +27,9 @@ class UserUpdateRequest extends FormRequest
         return [
             'name' => 'required',
             'email' => 'required|email|unique:users,email,'.$this->id,
-            'password' => 'same:confirm-password',
-//            'roles' => 'required'
+            'password' => 'required|same:confirm-password',
+            'roles'=>'required|array|min:1',
+
         ];
     }
 }
