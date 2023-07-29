@@ -59,7 +59,7 @@
                 <!--end::Sidebar mobile toggle-->
                 <!--begin::Mobile logo-->
                 <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
-                    <a href="../../demo1/dist/index.html" class="d-lg-none">
+                    <a href="{{route('dashboard')}}" class="d-lg-none">
                         <img alt="Logo" src="{{asset('backend/assets/media/logos/default-small.svg')}}" class="h-30px" />
                     </a>
                 </div>
@@ -4895,7 +4895,7 @@
 <script src="{{asset('backend/assets/js/custom/apps/chat/chat.js')}}"></script>
 <script src="{{asset('backend/assets/js/custom/utilities/modals/upgrade-plan.js')}}"></script>
 <script src="{{asset('backend/assets/js/custom/utilities/modals/create-app.js')}}"></script>
-<script src="{{asset('backend/assets/js/custom/utilities/modals/new-target.js')}}"></script>
+{{--<script src="{{asset('backend/assets/js/custom/utilities/modals/new-target.js')}}"></script>--}}
 <script src="{{asset('backend/assets/js/custom/utilities/modals/users-search.js')}}"></script>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>

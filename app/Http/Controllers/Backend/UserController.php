@@ -28,12 +28,9 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $keyword = $request->input('keyword');
+        $searchTerm = $request->input('keyword');
         $roles = Role::get();
-        $users  = User::with('roles')->when($keyword, function ($query, $keyword) {
-            return $query->search($keyword);
-        })->paginate(4);
-
+        $users  = User::with('roles')->where('name', 'LIKE', '%' . $searchTerm . '%')->paginate(4);
         return view('backend.users.index',compact('users','roles'));
     }
 

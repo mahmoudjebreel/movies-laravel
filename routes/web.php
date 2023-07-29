@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\Backend\CategoryController;
 use \App\Http\Controllers\Backend\RoleController;
 use \App\Http\Controllers\Backend\UserController;
+use \App\Http\Controllers\Backend\MovieController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,7 @@ use \App\Http\Controllers\Backend\UserController;
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function (){
     Route::view('/','backend.dashboard')->name('dashboard');
     Route::resource('/categories',CategoryController::class);
+    Route::resource('/movies',MovieController::class);
     Route::resource('/roles',RoleController::class);
     Route::resource('/users',UserController::class);
 

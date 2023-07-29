@@ -226,7 +226,7 @@
                                 @foreach($roles as $role)
                                 <tr>
 
-                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$loop->iteration}} </td>
+                                    <td data-order="2023-09-22T22:10:00+03:00" >{{$role->id}} </td>
                                     <td data-order="2023-09-22T22:10:00+03:00" >{{$role->name}} </td>
                                     <td class="text-end">
                                         @can('role-show')

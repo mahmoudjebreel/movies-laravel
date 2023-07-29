@@ -1,5 +1,5 @@
 @extends('backend.dashboard')
-@section('title','User Show')
+@section('title','Movie Show')
 @section('styles')
 
 @endsection
@@ -14,7 +14,7 @@
                     <!--begin::Page title-->
                     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                         <!--begin::Title-->
-                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">View User Details</h1>
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">View Movie Details</h1>
                         <!--end::Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -29,7 +29,7 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">User Management</li>
+                            <li class="breadcrumb-item text-muted">Movies Management</li>
                             <!--end::Item-->
                             <!--begin::Item-->
                             <li class="breadcrumb-item">
@@ -37,7 +37,7 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">Users</li>
+                            <li class="breadcrumb-item text-muted">Movies</li>
                             <!--end::Item-->
                         </ul>
                         <!--end::Breadcrumb-->
@@ -105,25 +105,44 @@
                                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                                         <div class="form-group">
                                                             <strong>Name:</strong>
-                                                            {{ $user->name }}
+                                                            {{ $movie->name }}
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                                         <div class="form-group">
-                                                            <strong>Email:</strong>
-                                                            {{ $user->email }}
+                                                            <strong>Description:</strong>
+                                                            {{ $movie->description }}
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                                         <div class="form-group">
-                                                            <strong>Roles:</strong>
-                                                            @if(!empty($user->getRoleNames()))
-                                                                @foreach($user->getRoleNames() as $v)
-                                                                    <label class="badge badge-success">{{ $v }}</label>
-                                                                @endforeach
+                                                            <strong>Image:</strong>
+                                                            <img width="100" height="100px" src="{{asset('storage/'.$movie->image)}}">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <strong>Year:</strong>
+                                                            {{ $movie->year }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <strong>rating:</strong>
+                                                            @if ($movie->rating != '')
+                                                                @for ($i = 0; $i < 5; $i++)
+                                                                    <li class="list-inline-item m-0"><i class="{{ round($movie->rating) <= $i ? 'far' : 'fas' }} fa-star fa-sm text-warning"></i></li>
+                                                                @endfor
+                                                            @else
+                                                                <li class="list-inline-item m-0"><i class="far fa-star fa-sm text-warning"></i></li>
+                                                                <li class="list-inline-item m-0"><i class="far fa-star fa-sm text-warning"></i></li>
+                                                                <li class="list-inline-item m-0"><i class="far fa-star fa-sm text-warning"></i></li>
+                                                                <li class="list-inline-item m-0"><i class="far fa-star fa-sm text-warning"></i></li>
+                                                                <li class="list-inline-item m-0"><i class="far fa-star fa-sm text-warning"></i></li>
                                                             @endif
                                                         </div>
                                                     </div>
+
                                                 </div>
 
                                                 <!--end::Details-->

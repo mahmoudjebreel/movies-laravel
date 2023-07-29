@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
+use App\Models\User;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
 
 class CategoryController extends Controller
 {
@@ -25,11 +27,8 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
-        $keyword = $request->input('keyword');
-
-        $categories  = Category::when($keyword, function ($query, $keyword) {
-            return $query->search($keyword);
-        })->paginate(4);
+        $searchTerm = $request->input('keyword');
+        $categories  = Category::where('name', 'LIKE', '%' . $searchTerm . '%')->paginate(4);
 
         return view('backend.categories.index',compact('categories'));
     }

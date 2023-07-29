@@ -24,12 +24,9 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-
-        $keyword = $request->input('keyword');
         $permission = Permission::all();
-        $roles  = \Spatie\Permission\Models\Role::when($keyword, function ($query, $keyword) {
-            return $query->search($keyword);
-        })->paginate(4);
+        $searchTerm = $request->input('keyword');
+        $roles  = \Spatie\Permission\Models\Role::where('name', 'LIKE', '%' . $searchTerm . '%')->paginate(4);
         return view('backend.roles.index',compact('roles','permission'));
     }
 
