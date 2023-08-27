@@ -3,13 +3,24 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\MovieRequest;
 use App\Models\Category;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use RealRashid\SweetAlert\Facades\Alert;
+use Spatie\Permission\Models\Role;
 
 class MovieController extends Controller
 {
+    function __construct()
+    {
+//        $this->middleware(['auth']);
+        $this->middleware('permission:movies-list|movies-create|movies-edit|movies-delete', ['only' => ['index','show']]);
+        $this->middleware('permission:movies-create', ['only' => ['create','store']]);
+        $this->middleware('permission:movies-edit', ['only' => ['edit','update']]);
+        $this->middleware('permission:movies-delete', ['only' => ['destroy']]);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -20,7 +31,15 @@ class MovieController extends Controller
         $searchTerm = $request->input('keyword');
         $movies  = Movie::where('name', 'LIKE', '%' . $searchTerm . '%')->paginate(4);
         $rated  =  Movie::avg('rating');
-        return view('backend.movies.index',compact('movies','rated'));
+        $categories = Category::get();
+        if (session('success_message')){
+            Alert::success('Success!',session('success_message'));
+        }
+
+        $title = 'Delete Movie!';
+        $text = "Are you sure you want to delete?";
+        confirmDelete($title, $text);
+        return view('backend.movies.index',compact('movies','rated','categories'));
     }
 
     /**
@@ -30,7 +49,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return view('backend.movies.index');
+        $categories = Category::pluck('id')->toArray();
+        return view('backend.movies.index',compact('categories'));
     }
 
     /**
@@ -39,7 +59,7 @@ class MovieController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(MovieRequest $request)
     {
         if ($request->hasFile('image')) {
             $imageName = time() . '.' . $request->image->getClientOriginalExtension();
@@ -49,14 +69,19 @@ class MovieController extends Controller
             $imagePath = null;
         }
 
-         Movie::create([
+
+        $movie =  Movie::create([
             'name' => $request->name,
             'description'=> $request->description,
             'image'=> $imagePath,
             'year'=> $request->year,
             'rating'=> $request->rating,
         ]);
-        return redirect()->route('movies.index')->with('success','Data Success');
+        $selectedCategories = $request->input('categories');
+        $movie->categories()->sync($selectedCategories);
+
+
+        return redirect()->route('movies.index')->withSuccessMessage('Successfully Added');
     }
 
     /**
@@ -69,7 +94,8 @@ class MovieController extends Controller
     {
         $movie = Movie::find($id);
         $rated  =  Movie::avg('rating');
-        return view('backend.movies.show',compact('movie','rated'));
+        $categories       = Category::all();
+        return view('backend.movies.show',compact('movie','rated','categories'));
     }
 
     /**
@@ -81,7 +107,9 @@ class MovieController extends Controller
     public function edit($id)
     {
         $movie = Movie::findOrFail($id);
-        return view('backend.movies.edit',compact('movie'));
+        $categories       = Category::all();
+        $selectedCategories = $movie->categories->pluck('id')->toArray();
+        return view('backend.movies.edit',compact('movie','categories','selectedCategories'));
     }
 
     /**
@@ -95,7 +123,6 @@ class MovieController extends Controller
     {
 
         $movie  = Movie::findOrFail($id);
-//        $CurrentImage = 'storage/movies';
         if (Storage::exists('public/'.$movie->image))
         {
             Storage::delete('public/'.$movie->image);
@@ -112,7 +139,10 @@ class MovieController extends Controller
             'year'=> $request->year,
             'rating'=> $request->rating,
         ]);
-        return redirect()->route('movies.index')->with('success','Updated Success');
+        $selectedCategories = $request->input('categories');
+        $movie->categories()->sync($selectedCategories);
+
+        return redirect()->route('movies.index')->withSuccessMessage('Successfully Updated');
 
     }
 
@@ -131,5 +161,9 @@ class MovieController extends Controller
         }
         $movie->delete();
         return  redirect()->route('movies.index');
+
+//        return response()->json(['message' => 'Movie deleted successfully']);
+
+
     }
 }

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Exports\CategoryExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\User;
 use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 
 class CategoryController extends Controller
@@ -109,16 +111,19 @@ class CategoryController extends Controller
         return  redirect()->route('categories.index');
     }
 
-//    public function export(Request $request) {
-//
-//        $data = Category::all();
-//        if ($request->has('pdf')){
-//            $pdf = PDF::loadView('pdf_view', $data);
-//            return $pdf->download('pdf_file.pdf');
-//        }
-//        elseif($request->has('excel')){
-//
-//        }
-//
-//    }
+    public function export(Request $request)
+    {
+        $categories = Category::all();
+
+        if ($request->input('format') === 'pdf')
+        {
+            $pdf = PDF::loadView('categories.pdf', compact('categories'));
+            return $pdf->download('categories.pdf');
+        }
+        elseif ($request->input('format') === 'excel') {
+            return Excel::download(new CategoryExport($categories), 'categories.xlsx');
+        }
+//        return Excel::download(new CategoryExport(), 'categories.xls');
+
+    }
 }

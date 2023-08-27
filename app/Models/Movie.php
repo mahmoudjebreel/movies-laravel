@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Movie extends Model
 {
@@ -17,5 +18,10 @@ class Movie extends Model
         'rating',
     ];
 
+
+    public function categories()
+    {
+        return $this->belongsToMany(Category::class,'movie_categories','movie_id','category_id','id','id');
+    }
 
 }

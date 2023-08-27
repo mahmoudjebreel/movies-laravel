@@ -10,9 +10,14 @@ class Category extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
-    
-    public function scopeSearch($query, $keyword)
+
+//    public function scopeSearch($query, $keyword)
+//    {
+//        return $query->where('name', 'like', '%' . $keyword . '%');
+//    }
+
+    public function movies()
     {
-        return $query->where('name', 'like', '%' . $keyword . '%');
+        return $this->belongsToMany(Movie::class,'movie_categories','category_id','movie_id','id','id');
     }
 }

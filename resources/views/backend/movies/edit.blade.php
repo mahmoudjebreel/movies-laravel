@@ -94,6 +94,14 @@
                                                     @endif
                                                 </div>
 
+                                                <div class="fv-row mb-7">
+                                                    <label class="form-label" for="categories[]">Categories</label>
+                                                    <select class="form-control " name="categories[]" multiple>
+                                                        @foreach ($categories as $category)
+                                                            <option value="{{ $category->id }}" @if (in_array($category->id, $selectedCategories)) selected @endif>{{ $category->name }}</option>
+                                                        @endforeach
+
+                                                    </select>
 
                                                 <div class="fv-row mb-7">
                                                     <!--begin::Label-->

@@ -25,6 +25,8 @@
     <!--begin::Global Stylesheets Bundle(mandatory for all pages)-->
     <link href="{{asset('backend/assets/plugins/global/plugins.bundle.css')}}" rel="stylesheet" type="text/css" />
     <link href="{{asset('backend/assets/css/style.bundle.css')}}" rel="stylesheet" type="text/css" />
+{{--    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>--}}
+
 
     <!--end::Global Stylesheets Bundle-->
     @yield('styles')
@@ -4907,6 +4909,23 @@
         $('#multiple-checkboxes').multiselect();
     });
 </script>
+<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script>
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('5a6024e0262d58f954e7', {
+        cluster: 'eu'
+    });
+
+    var channel = pusher.subscribe('my-channel');
+    channel.bind('my-event', function(data) {
+        alert(JSON.stringify(data));
+    });
+</script>
+@include('sweetalert::alert')
+
 @yield('scripts')
 <!--end::Javascript-->
 </body>

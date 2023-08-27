@@ -1,5 +1,5 @@
 @extends('backend.dashboard')
-@section('title','title')
+@section('title','Role Show')
 @section('styles')
 
 @endsection
@@ -14,7 +14,7 @@
                     <!--begin::Page title-->
                     <div class="page-title d-flex flex-column justify-content-center flex-wrap me-3">
                         <!--begin::Title-->
-                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">View User Details</h1>
+                        <h1 class="page-heading d-flex text-dark fw-bold fs-3 flex-column justify-content-center my-0">View Role Details</h1>
                         <!--end::Title-->
                         <!--begin::Breadcrumb-->
                         <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0 pt-1">
@@ -29,7 +29,7 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">User Management</li>
+                            <li class="breadcrumb-item text-muted">Role Management</li>
                             <!--end::Item-->
                             <!--begin::Item-->
                             <li class="breadcrumb-item">
@@ -37,7 +37,7 @@
                             </li>
                             <!--end::Item-->
                             <!--begin::Item-->
-                            <li class="breadcrumb-item text-muted">Users</li>
+                            <li class="breadcrumb-item text-muted">Roles</li>
                             <!--end::Item-->
                         </ul>
                         <!--end::Breadcrumb-->
@@ -71,7 +71,7 @@
                                         <div class="card-header mt-6">
                                             <!--begin::Card title-->
                                             <div class="card-title flex-column">
-                                                <h2 class="mb-1">User Show</h2>
+                                                <h2 class="mb-1">Role Show</h2>
                                             </div>
                                             <!--end::Card title-->
                                             <!--begin::Card toolbar-->
@@ -82,25 +82,6 @@
                                         <div class="card-body d-flex flex-column">
                                             <!--begin::Item-->
                                             <div class="d-flex align-items-center position-relative mb-7">
-                                                <!--begin::Label-->
-{{--                                                <div class="position-absolute top-0 start-0 rounded h-100 bg-secondary w-4px"></div>--}}
-                                                <!--end::Label-->
-                                                <!--begin::Details-->
-{{--                                                <div class="fw-semibold ms-5">--}}
-{{--                                                    <a href="#" class="fs-5 fw-bold text-dark text-hover-primary">User Name : </a>--}}
-{{--                                                    <!--begin::Info-->--}}
-{{--                                                    <div class="fs-7 text-muted">--}}
-{{--                                                        <a href="{{route('users.index')}}">{{$user->name}}</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    <br>--}}
-{{--                                                    <!--end::Info-->--}}
-{{--                                                    <a href="#" class="fs-5 fw-bold text-dark text-hover-primary">User Email : </a>--}}
-{{--                                                    <!--begin::Info-->--}}
-{{--                                                    <div class="fs-7 text-muted">--}}
-{{--                                                        <a href="{{route('users.index')}}">{{$user->email}}</a>--}}
-{{--                                                    </div>--}}
-{{--                                                    --}}
-{{--                                                </div>--}}
                                                 <div class="row">
                                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                                         <div class="form-group">

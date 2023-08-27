@@ -188,6 +188,7 @@
                     <!--end:Menu sub-->
                 </div>
                 @endcan
+                @can('movies-list')
                 <div data-kt-menu-trigger="click" class="menu-item menu-accordion">
                     <!--begin:Menu link-->
                     <span class="menu-link">
@@ -231,6 +232,7 @@
                     </div>
                     <!--end:Menu sub-->
                 </div>
+                @endcan
             </div>
             <!--end::Menu-->
         </div>

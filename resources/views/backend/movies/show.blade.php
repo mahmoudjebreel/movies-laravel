@@ -71,7 +71,7 @@
                                         <div class="card-header mt-6">
                                             <!--begin::Card title-->
                                             <div class="card-title flex-column">
-                                                <h2 class="mb-1">User Show</h2>
+                                                <h2 class="mb-1">Movie Show</h2>
                                             </div>
                                             <!--end::Card title-->
                                             <!--begin::Card toolbar-->
@@ -126,6 +126,18 @@
                                                             {{ $movie->year }}
                                                         </div>
                                                     </div>
+                                                    <br>
+                                                    <div class="col-xs-12 col-sm-12 col-md-12">
+                                                        <div class="form-group">
+                                                            <strong>Categories:</strong>
+                                                            @if(!empty($movie->categories))
+                                                                @foreach($movie->categories as $category)
+                                                                    <label class="badge badge-success">{{ $category->name }}</label>
+                                                                @endforeach
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                    <br>
                                                     <div class="col-xs-12 col-sm-12 col-md-12">
                                                         <div class="form-group">
                                                             <strong>rating:</strong>

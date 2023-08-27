@@ -28,9 +28,11 @@ use \App\Http\Controllers\Backend\MovieController;
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function (){
     Route::view('/','backend.dashboard')->name('dashboard');
     Route::resource('/categories',CategoryController::class);
+    Route::get('/export',[CategoryController::class,'export'])->name('export');
     Route::resource('/movies',MovieController::class);
     Route::resource('/roles',RoleController::class);
     Route::resource('/users',UserController::class);
+
 
 });
 

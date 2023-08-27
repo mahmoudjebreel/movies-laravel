@@ -1,6 +1,7 @@
 @extends('backend.dashboard')
 @section('title','Index Movies')
 @section('styles')
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
 @endsection
 @section('content')
@@ -103,7 +104,7 @@
                                         <!--end::Svg Icon-->Export</button>
                                     <!--end::Export-->
                                     <!--begin::Add user-->
-{{--                                    @can('categories-create')--}}
+                                    @can('movies-create')
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#kt_modal_add_user">
                                         <!--begin::Svg Icon | path: icons/duotune/arrows/arr075.svg-->
                                         <span class="svg-icon svg-icon-2">
@@ -113,7 +114,7 @@
 														</svg>
 													</span>
                                         <!--end::Svg Icon-->Add Movie</button>
-{{--                                    @endcan--}}
+                                    @endcan
                                     <!--end::Add user-->
                                 </div>
 
@@ -248,7 +249,27 @@
                                                             <!--end::Input-->
                                                         </div>
 
+{{--                                                        <div class="fv-row mb-7">--}}
+{{--                                                            <!--begin::Label-->--}}
+{{--                                                            <label class="required fw-semibold fs-6 mb-2">Categories</label>--}}
+{{--                                                            <!--begin::Input-->--}}
+{{--                                                            <select class="form-control" name="categories[]" multiple>--}}
+{{--                                                                @foreach ($categories as $category)--}}
+{{--                                                                    <option value="{{ $category->id }}">{{ $category->name}}</option>--}}
+{{--                                                                @endforeach--}}
+{{--                                                            </select>--}}
+{{--                                                            <!--end::Input-->--}}
+{{--                                                        </div>--}}
+                                                        <div class="mb-3">
+                                                            <label class="form-label" for="categories[]">Category</label>
+                                                            <select class="form-control select2" name="categories[]" multiple="multiple">
+                                                                @foreach ($categories as $category)
+                                                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                                                @endforeach
+                                                            </select>
+{{--                                                            @error('categories') <div class="text-danger">{{$message}}</div> @enderror--}}
 
+                                                        </div>
                                                         <div class="fv-row mb-7">
                                                             <!--begin::Label-->
                                                             <label class="required fw-semibold fs-6 mb-2">Year</label>
@@ -318,6 +339,7 @@
                                     <th class="min-w-125px">year</th>
                                     <th class="min-w-125px">Image</th>
                                     <th class="min-w-125px">Rating</th>
+                                    <th class="min-w-125px">Categories</th>
                                     <th class="text-end min-w-100px">Actions</th>
                                 </tr>
                                 <!--end::Table row-->
@@ -355,23 +377,28 @@
                                             <li class="list-inline-item m-0"><i class="far fa-star fa-sm text-warning"></i></li>
                                         @endif </td>
                                         <!--begin::User details-->
-
+                                    <td data-order="2023-09-22T22:10:00+03:00">
+                                            @foreach($movie->categories as $category)
+                                                <label class="badge badge-success">{{ $category->name }}</label>
+                                            @endforeach
+                                    </td>
 
                                     <td class="text-end">
-{{--                                        @can('categories-show')--}}
+                                        @can('movies-show')
                                         <a href="{{route('movies.show',$movie->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4 me-2">View</a>
-{{--                                        @endcan--}}
-{{--                                        @can('categories-edit')--}}
+                                        @endcan
+                                        @can('movies-edit')
                                         <a href="{{route('movies.edit',$movie->id)}}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">Edit</a>
-{{--                                       @endcan--}}
-{{--                                       @can('categories-delete')--}}
-                                        <form action="{{ route('movies.destroy', $movie->id) }}" method="post" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">
-                                            @csrf
-                                            @method('delete')
-                                            <button class="dropdown-item" href="javascript:void(0);">
-                                                Delete</button>
-                                        </form>
-{{--                                        @endcan--}}
+                                       @endcan
+                                       @can('movies-delete')
+{{--                                        <form action="{{ route('movies.destroy', $movie->id) }}" method="post" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4">--}}
+{{--                                            @csrf--}}
+{{--                                            @method('delete')--}}
+{{--                                            <button  class="btn btn-danger delete-btn" data-confirm-delete="true">Delete</button>--}}
+{{--                                        </form>--}}
+                                                <a href="{{ route('movies.destroy', $movie->id) }}" class="btn btn-bg-light btn-color-muted btn-active-color-primary btn-sm px-4" data-confirm-delete="true">Delete</a>
+
+                                            @endcan
                                     </td>
 
                                 </tr>
@@ -407,24 +434,32 @@
 
         <!--end::Content wrapper-->
         <!--begin::Footer-->
-        <div id="kt_app_footer" class="app-footer">
-            <!--begin::Footer container-->
-            <div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">
-                <!--begin::Copyright-->
-                <div class="text-dark order-2 order-md-1">
-                    <span class="text-muted fw-semibold me-1">2023&copy;</span>
-                    <a href="#" target="_blank" class="text-gray-800 text-hover-primary">Mahmoud Jebreel</a>
-                </div>
-                <!--end::Copyright-->
-                <!--begin::Menu-->
-                <!--end::Menu-->
-            </div>
-            <!--end::Footer container-->
-        </div>
+{{--        <div id="kt_app_footer" class="app-footer">--}}
+{{--            <!--begin::Footer container-->--}}
+{{--            <div class="app-container container-fluid d-flex flex-column flex-md-row flex-center flex-md-stack py-3">--}}
+{{--                <!--begin::Copyright-->--}}
+{{--                <div class="text-dark order-2 order-md-1">--}}
+{{--                    <span class="text-muted fw-semibold me-1">2023&copy;</span>--}}
+{{--                    <a href="#" target="_blank" class="text-gray-800 text-hover-primary">Mahmoud Jebreel</a>--}}
+{{--                </div>--}}
+{{--                <!--end::Copyright-->--}}
+{{--                <!--begin::Menu-->--}}
+{{--                <!--end::Menu-->--}}
+{{--            </div>--}}
+{{--            <!--end::Footer container-->--}}
+{{--        </div>--}}
         <!--end::Footer-->
     </div>
 
 @endsection
 @section('scripts')
+{{--    <script src="{{ asset('backend/vendor/select2/js/select2.full.min.js') }}"></script>--}}
+{{--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>--}}
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+{{--    <script>--}}
+{{--        --}}
+{{--    </script>--}}
+
 
 @endsection

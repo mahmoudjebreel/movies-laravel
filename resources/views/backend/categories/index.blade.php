@@ -78,6 +78,7 @@
                                                 </div>
                                             </form>
                                         </div>
+{{--                                    <a href="{{ route('export') }}" class="btn btn-success">Export to Excel</a>--}}
 
                                     <!--end::Search-->
                                 </div>
@@ -154,20 +155,21 @@
                                             <!--begin::Modal body-->
                                             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                                 <!--begin::Form-->
-                                                <form id="kt_modal_export_users_form" class="form" action="#">
-
+                                                <form id="kt_modal_export_users_form" class="form" action="{{route('export')}}" method="POST" enctype="multipart/form-data">
+                                                    @csrf
                                                     <div class="fv-row mb-10">
                                                         <!--begin::Label-->
                                                         <label class="required fs-6 fw-semibold form-label mb-2">Select Export Format:</label>
                                                         <!--end::Label-->
                                                         <!--begin::Input-->
-                                                        <select name="select" data-control="select2" data-placeholder="Select a format" data-hide-search="true" class="form-select form-select-solid fw-bold">
+                                                        <select name="format" id="format" data-control="select2" data-placeholder="Select a format" data-hide-search="true" class="form-select form-select-solid fw-bold">
                                                             <option></option>
-                                                            <option name ="excel" value="excel">Excel</option>
-                                                            <option name ="pdf" value="pdf">PDF</option>
+                                                            <option name="excel" value="excel">Excel</option>
+                                                            <option name="pdf" value="pdf">PDF</option>
                                                         </select>
                                                         <!--end::Input-->
                                                     </div>
+{{--                                                <a href="{{route('categories.export')}}">export</a>--}}
                                                     <!--end::Input group-->
                                                     <!--begin::Actions-->
                                                     <div class="text-center">
