@@ -28,7 +28,9 @@ use \App\Http\Controllers\Backend\MovieController;
 Route::prefix('/dashboard')->middleware(['auth', 'verified'])->group(function (){
     Route::view('/','backend.dashboard')->name('dashboard');
     Route::resource('/categories',CategoryController::class);
-    Route::get('/export',[CategoryController::class,'export'])->name('export');
+    Route::get('/export',[CategoryController::class,'exportExcel'])->name('export');
+    Route::get('/export/pdf', [CategoryController::class, 'exportPDF'])->name('export.pdf');
+//    Route::delete('/items/delete-selected', [CategoryController::class, 'deleteSelected'])->name('items.deleteSelected');
     Route::resource('/movies',MovieController::class);
     Route::resource('/roles',RoleController::class);
     Route::resource('/users',UserController::class);

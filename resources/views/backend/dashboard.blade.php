@@ -4899,6 +4899,10 @@
 <script src="{{asset('backend/assets/js/custom/utilities/modals/create-app.js')}}"></script>
 {{--<script src="{{asset('backend/assets/js/custom/utilities/modals/new-target.js')}}"></script>--}}
 <script src="{{asset('backend/assets/js/custom/utilities/modals/users-search.js')}}"></script>
+{{--<script src="{{asset('backend/assets/js/custom/apps/user-management/roles/list/update-role.js')}}"></script>--}}
+{{--<script src="{{asset('backend/assets/js/custom/apps/user-management/roles/list/add.js')}}"></script>--}}
+{{--<script src="{{asset('backend/assets/js/custom/apps/user-management/roles/view/view.js')}}"></script>--}}
+{{--<script src="{{asset('backend/assets/js/custom/apps/user-management/roles/view/update-role.js')}}"></script>--}}
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
 <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

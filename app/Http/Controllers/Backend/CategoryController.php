@@ -7,10 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use App\Models\User;
-use Barryvdh\DomPDF\PDF;
+use PDF ;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use Spatie\Permission\Models\Role;
 
 class CategoryController extends Controller
 {
@@ -111,19 +110,25 @@ class CategoryController extends Controller
         return  redirect()->route('categories.index');
     }
 
-    public function export(Request $request)
+    public function exportExcel()
     {
         $categories = Category::all();
-
-        if ($request->input('format') === 'pdf')
-        {
-            $pdf = PDF::loadView('categories.pdf', compact('categories'));
-            return $pdf->download('categories.pdf');
-        }
-        elseif ($request->input('format') === 'excel') {
-            return Excel::download(new CategoryExport($categories), 'categories.xlsx');
-        }
-//        return Excel::download(new CategoryExport(), 'categories.xls');
-
+        return Excel::download(new CategoryExport($categories), 'categories.xlsx');
     }
+
+    public function exportPDF()
+    {
+        $categories = Category::all();
+        $pdf = PDF::loadView('backend.categories.pdf', compact('categories'));
+        return $pdf->download('categories.pdf');
+    }
+
+//    public function deleteSelected(Request $request)
+//    {
+//        $itemIds = $request->input('itemIds'); // Get the selected item IDs from the request
+//
+//        Category::whereIn('id', $itemIds)->delete(); // Delete the selected items
+//
+//        return redirect()->route('items.index')->with('success', 'Selected items deleted successfully');
+//    }
 }
